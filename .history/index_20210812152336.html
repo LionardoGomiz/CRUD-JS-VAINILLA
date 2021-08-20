@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD JS Vainilla</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!--<a name=""  id="" class="btn btn-primary" href="#" role="button">Hola </a>-->
+    <div class="container">
+        <br> 
+        <div class="row">
+            <br>
+            <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-header">
+                            Empleados
+                        </div>
+                        <div class="card-body">
+                            <form action="javascript:void(0);" method="POST" onsubmit="aplicacion.Agregar()">
+                                    <div class="form-group">
+                                      <label for="">Nombre:</label>
+                                      <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="Nombre del empleado">
+                                      <small id="helpId" class="form-text text-muted">Help text</small>
+                                    </div>
+                                   <div class="form-group">
+                                     <label for="">Correo:</label>
+                                     <input type="email" class="form-control" name="correo" id="correo" aria-describedby="emailId" placeholder="Correro del empleado">
+ 
+                                     <small id="helpId" class="form-text text-muted">Help text</small>
+                                   </div>
+                                   <button type="submit" class="btn btn-primary">Enivar</button>
+                            </form>   
+                          
+                            <h5 class="card-title">Title</h5>
+                            <p class="card-text">Content</p>
+                        </div>
+                    </div>
+                  
+                
+            </div>
+            <div class="col-md-7">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="empleados">
+                    
+                        <tr>
+                            <td scope="row"></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        var url="http://localhost:7777/CRUD-JS-VAINILLA/";
+
+        var aplicacion = new function(){
+            this.nombre = document.getElementById("nombre");
+            this.correo = document.getElementById("correo");
+            this.empledos = document.getElementById("empleados");
+        this.Leer = function(){
+            var datos = "";
+
+            fetch(url)
+            .then(r=>r.json())
+            .then((respuesta)=>{
+                console.log(respuesta);
+
+                respuesta.map(
+                    function (empleado,index, array){
+                        datos+="<tr>";
+                            datos+="<td>"+empleado.id+"</td>";
+                            datos+="<td>"+empleado.Nombre+"</td>";
+                            datos+="<td>"+empleado.Correo+"</td>";
+                            datos+="<td>"+empleado.id+"</td>";    
+                        datos+="</tr>";
+                    }
+                );
+                return this.empledos.innerHTML=datos;
+            })
+            .catch(console.log);
+            //MODO DE PRUEBA
+            /*datos = "<tr><td>gfg</td> <td>Leonardo</td><td>lionardo@gmail.com</td><td>Editar | Borrar</td></tr>";    
+            return this.empledos.innerHTML=datos;*/
+        };
+        this.Agregar=function(){
+            console.log(nombre.value);
+            console.log(correo.value);
+
+            var datosEnviar = {nombre:this.Nombre.value,correo:this.Correo.value}
+
+        };
+    }
+    aplicacion.Leer();
+    </script>
+</body>
+</html>
